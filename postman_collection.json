@@ -1,0 +1,366 @@
+{
+  "info": {
+    "name": "PrimetradeAI Backend Assignment",
+    "_postman_id": "4a7cda2d-7cb4-4ac6-9f2b-42ee0b4c92d9",
+    "description": "Postman collection for authentication and product CRUD APIs used in the PrimetradeAI backend assignment submission.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "productId",
+      "value": ""
+    },
+    {
+      "key": "resetToken",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Aditya Agrawal\",\n  \"email\": \"aditya@example.com\",\n  \"password\": \"secret123\",\n  \"phoneNumber\": \"9876543210\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/user/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "user",
+                "register"
+              ]
+            },
+            "description": "Registers a new user account."
+          }
+        },
+        {
+          "name": "Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set('token', jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"aditya@example.com\",\n  \"password\": \"secret123\",\n  \"value\": \"login\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/user/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "user",
+                "login"
+              ]
+            },
+            "description": "Logs in a user and stores the returned JWT token in the collection variable `token`."
+          }
+        },
+        {
+          "name": "Get Logged In User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/user/getUser",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "user",
+                "getUser"
+              ]
+            },
+            "description": "Returns the authenticated user profile."
+          }
+        },
+        {
+          "name": "Send Reset Password Link",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"aditya@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/user/forgot-password/send-link",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "user",
+                "forgot-password",
+                "send-link"
+              ]
+            },
+            "description": "Triggers the password reset link flow."
+          }
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"newsecret123\",\n  \"confirmPassword\": \"newsecret123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/user/reset-password/{{resetToken}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "user",
+                "reset-password",
+                "{{resetToken}}"
+              ]
+            },
+            "description": "Resets the user password using the reset token received in email."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/product/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "product",
+                ""
+              ]
+            },
+            "description": "Fetches all products."
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Aquarium Plant Care Solution",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "A premium product used as the assignment secondary entity.",
+                  "type": "text"
+                },
+                {
+                  "key": "capacity",
+                  "value": "200 ml",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "250",
+                  "type": "text"
+                },
+                {
+                  "key": "baseDeliveryPrice",
+                  "value": "100",
+                  "type": "text"
+                },
+                {
+                  "key": "deliveryPricePerBottle",
+                  "value": "50",
+                  "type": "text"
+                },
+                {
+                  "key": "discount",
+                  "value": "10",
+                  "type": "text"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/product/addProduct",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "product",
+                "addProduct"
+              ]
+            },
+            "description": "Creates a product. Update the `images` field with a local file before sending."
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Updated Product Name",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Updated description for testing product edit.",
+                  "type": "text"
+                },
+                {
+                  "key": "capacity",
+                  "value": "250 ml",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "300",
+                  "type": "text"
+                },
+                {
+                  "key": "baseDeliveryPrice",
+                  "value": "100",
+                  "type": "text"
+                },
+                {
+                  "key": "deliveryPricePerBottle",
+                  "value": "50",
+                  "type": "text"
+                },
+                {
+                  "key": "discount",
+                  "value": "5",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/product/{{productId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "product",
+                "{{productId}}"
+              ]
+            },
+            "description": "Updates an existing product by id. Set `productId` before running this request."
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/product/deleteProduct/{{productId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "product",
+                "deleteProduct",
+                "{{productId}}"
+              ]
+            },
+            "description": "Deletes an existing product by id. Set `productId` before running this request."
+          }
+        }
+      ]
+    }
+  ]
+}
