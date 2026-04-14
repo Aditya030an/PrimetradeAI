@@ -13,6 +13,33 @@ Although the project is based on a real e-commerce use case, it cleanly satisfie
 
 ---
 
+## Live Demo
+
+Frontend Deployment:  
+https://aquahari.in
+
+You can test the application directly using the deployed frontend.
+
+---
+
+## Demo Admin Access
+
+For evaluation purposes, an admin account is available to test product management APIs.
+
+Admin Email:  
+adityaagrawalq@gmail.com
+
+Admin Password:
+Aditya@123
+
+⚠️ Note: Admin password is shared separately with the reviewer if required.
+
+Admin capabilities:
+- Add new products
+- Update products
+- Delete products
+- Access protected admin routes
+
 ## Live Scope of This Submission
 
 ### Backend
@@ -61,6 +88,12 @@ Although the project is based on a real e-commerce use case, it cleanly satisfie
 - Tailwind CSS
 - React Hot Toast
 - Framer Motion
+
+---
+
+### Integrations
+- Razorpay Payment Gateway
+- Shiprocket API for shipment creation & tracking
 
 ---
 
