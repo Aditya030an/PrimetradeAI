@@ -13,6 +13,29 @@ Although the project is based on a real e-commerce use case, it cleanly satisfie
 
 ---
 
+## Email Notification Service
+
+The application integrates **Nodemailer** to send automated email notifications.
+
+Email notifications are triggered for:
+
+• Successful order confirmation  
+• Admin notification when a new order is placed  
+• Important system updates 
+• Forgot Password link send to email 
+• contact us send to email
+• consultation notification send to admin by email
+• consultation confirmation send to user by email
+
+Features:
+
+- HTML email templates
+- User order confirmation emails
+- Admin order alerts
+- Secure SMTP configuration using environment variables
+
+---
+
 ## Live Demo
 
 Frontend Deployment:  
